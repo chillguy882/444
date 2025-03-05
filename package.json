@@ -1,7 +1,7 @@
 {
   "name": "bwd_labs",
   "version": "1.0.0",
-  "description": "*ФИО:* {Локтев Д.А}\r    *Группа:* {Группа ПрИ-23}",
+  "description": "*ФИО:* {Ульев А.В.}\r    *Группа:* {Группа ПрИ-23}",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
