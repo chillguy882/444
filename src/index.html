@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Главная</title>
+    <link rel="stylesheet" href="css/styly.css" id="theme" />
+    <link
+      rel="shortcut icon"
+      href="https://sun9-57.userapi.com/impg/LwSjNz2JTuNHGX5s-41MkGR_Bt2bpXWt8eIMpQ/f6N9rTWnVQM.jpg?size=126x89&quality=96&sign=964512da46a83cae6e05ef5e8fd8eee7&type=album"
+      type="imge/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="index.html">
+        <img
+          src="https://sun9-57.userapi.com/impg/LwSjNz2JTuNHGX5s-41MkGR_Bt2bpXWt8eIMpQ/f6N9rTWnVQM.jpg?size=126x89&quality=96&sign=964512da46a83cae6e05ef5e8fd8eee7&type=album"
+          alt="Logo"
+          class="pointer"
+        />
+      </a>
+      <nav>
+        <div class="burger-menu" id="burgerMenu">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <ul class="nav-links">
+          <li class="active"><a href="index.html">Главная</a></li>
+          <li><a href="projects.html">Проекты</a></li>
+          <li><a href="task.html">Список задач</a></li>
+          <li><a href="about.html">О приложении</a></li>
+          <li><button id="SwitchMode">Тема</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Доска заданий!<br /></h1>
+      <p>
+        Добро пожаловать в наше приложение! Здесь вы можете управлять своими
+        задачами, отслеживать прогресс и организовывать проекты.<br />
+        Простота и удобство — наши приоритеты.
+      </p>
+      <img
+        src="https://sun9-11.userapi.com/impg/TDSL3oM5UHKhfRVxsHwW1SeCIFx_t2ed5C92zA/bZMvkjai5OE.jpg?size=1200x630&quality=96&sign=633fdcaa2ec70f58ff0a6b5b9768efd8&type=album"
+        alt="Описание изображения"
+        style="max-width: 100%; height: auto"
+      />
+    </main>
+    <script src="bundle.js"></script>
+    <script src="js/scrip1.js"></script>
+    <script>
+      document.getElementById("burgerMenu").addEventListener("click", () => {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active"); // Переключаем класс active
+        const burgerMenu = document.getElementById("burgerMenu");
+        burgerMenu.classList.toggle("active"); // Переключаем класс active для бургер-меню
+
+        // Плавное открытие навигации
+        if (navLinks.classList.contains("active")) {
+          navLinks.style.display = "flex"; // Показываем меню
+          setTimeout(() => {
+            navLinks.style.opacity = "1"; // Устанавливаем полную непрозрачность
+          }, 0); // Сразу устанавливаем непрозрачность
+        } else {
+          navLinks.style.opacity = "0"; // Уменьшаем непрозрачность
+          setTimeout(() => {
+            navLinks.style.display = "none"; // Скрываем меню
+          }, 300); // Задержка для плавного эффекта
+        }
+      });
+
+      const toggleButton = document.getElementById("SwitchMode");
+
+      // Проверяем, сохранена ли тема в localStorage
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+      }
+
+      // Обработчик события для переключения темы
+      toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        // Сохраняем текущую тему в localStorage
+        if (document.body.classList.contains("dark-mode")) {
+          localStorage.setItem("theme", "dark");
+        } else {
+          localStorage.setItem("theme", "light");
+        }
+      });
+    </script>
+  </body>
+</html>

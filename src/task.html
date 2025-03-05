@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список задач</title>
+    <link rel="stylesheet" href="css/styly.css" />
+    <link
+      rel="shortcut icon"
+      href="https://sun9-57.userapi.com/impg/LwSjNz2JTuNHGX5s-41MkGR_Bt2bpXWt8eIMpQ/f6N9rTWnVQM.jpg?size=126x89&quality=96&sign=964512da46a83cae6e05ef5e8fd8eee7&type=album"
+      type="imge/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="index.html">
+        <img
+          src="https://sun9-57.userapi.com/impg/LwSjNz2JTuNHGX5s-41MkGR_Bt2bpXWt8eIMpQ/f6N9rTWnVQM.jpg?size=126x89&quality=96&sign=964512da46a83cae6e05ef5e8fd8eee7&type=album"
+          alt="Logo"
+          class="pointer"
+        />
+        <!-- Добавлен стиль для курсора -->
+      </a>
+      <nav>
+        <div class="burger-menu" id="burgerMenu">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="projects.html">Проекты</a></li>
+          <li class="active"><a href="task.html">Список задач</a></li>
+          <li><a href="about.html">О приложении</a></li>
+          <li><button id="SwitchMode">Тема</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h1>Список задач</h1>
+
+    <div class="add-task">
+      <a href="add-task.html">Добавить задачу</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Задачи</th>
+          <th>В работе</th>
+          <th>Выполненные</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="todoTasks"></td>
+          <td id="inProgressTasks"></td>
+          <td id="doneTasks"></td>
+        </tr>
+      </tbody>
+    </table>
+    <script src="bundle.js" async></script>
+    <script src="js/scrip2.js" async></script>
+    <script>
+      document.getElementById("burgerMenu").addEventListener("click", () => {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active"); // Переключаем класс active
+        const burgerMenu = document.getElementById("burgerMenu");
+        burgerMenu.classList.toggle("active"); // Переключаем класс active для бургер-меню
+
+        // Плавное открытие навигации
+        if (navLinks.classList.contains("active")) {
+          navLinks.style.display = "flex"; // Показываем меню
+          setTimeout(() => {
+            navLinks.style.opacity = "1"; // Устанавливаем полную непрозрачность
+          }, 0); // Сразу устанавливаем непрозрачность
+        } else {
+          navLinks.style.opacity = "0"; // Уменьшаем непрозрачность
+          setTimeout(() => {
+            navLinks.style.display = "none"; // Скрываем меню
+          }, 300); // Задержка для плавного эффекта
+        }
+      });
+      // Логика табличная с перестановкой места и методами удалить и решить и тд
+      let todoTasks = JSON.parse(localStorage.getItem("todoTasks")) || [];
+      let inProgressTasks =
+        JSON.parse(localStorage.getItem("inProgressTasks")) || [];
+      let doneTasks = JSON.parse(localStorage.getItem("doneTasks")) || [];
+
+      function renderTasks() {
+        const todoColumn = document.getElementById("todoTasks");
+        const inProgressColumn = document.getElementById("inProgressTasks");
+        const doneColumn = document.getElementById("doneTasks");
+
+        todoColumn.innerHTML = "";
+        todoTasks.forEach((task, index) => {
+          todoColumn.innerHTML += `
+      <div>
+        ${task}
+        <button onclick="moveToInProgress(${index})">В работу</button>
+        <button onclick="deleteTask(${index}, 'todo')">Удалить</button>
+      </div>`;
+        });
+
+        inProgressColumn.innerHTML = "";
+        inProgressTasks.forEach((task, index) => {
+          inProgressColumn.innerHTML += `
+      <div>
+        ${task}
+        <button onclick="markAsDone(${index})">Выполнено</button>
+        <button onclick="deleteTask(${index}, 'inProgress')">Удалить</button>
+      </div>`;
+        });
+
+        doneColumn.innerHTML = "";
+        doneTasks.forEach((task, index) => {
+          doneColumn.innerHTML += `
+      <div class="task-done">
+        ${task}
+        <button onclick="deleteTask(${index}, 'done')">Удалить</button>
+      </div>`;
+        });
+      }
+
+      function moveToInProgress(index) {
+        inProgressTasks.push(todoTasks[index]);
+        todoTasks.splice(index, 1);
+        saveTasks();
+        renderTasks();
+      }
+
+      function markAsDone(index) {
+        doneTasks.push(inProgressTasks[index]);
+        inProgressTasks.splice(index, 1);
+        saveTasks();
+        renderTasks();
+      }
+
+      function deleteTask(index, column) {
+        if (column === "todo") {
+          todoTasks.splice(index, 1);
+        } else if (column === "inProgress") {
+          inProgressTasks.splice(index, 1);
+        } else if (column === "done") {
+          doneTasks.splice(index, 1);
+        }
+        saveTasks();
+        renderTasks();
+      }
+
+      function saveTasks() {
+        localStorage.setItem("todoTasks", JSON.stringify(todoTasks));
+        localStorage.setItem(
+          "inProgressTasks",
+          JSON.stringify(inProgressTasks)
+        );
+        localStorage.setItem("doneTasks", JSON.stringify(doneTasks));
+      }
+
+      renderTasks();
+      const toggleButton = document.getElementById("SwitchMode");
+
+      // Проверяем, сохранена ли тема в localStorage
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+      }
+
+      // Обработчик события для переключения темы
+      toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        // Сохраняем текущую тему в localStorage
+        if (document.body.classList.contains("dark-mode")) {
+          localStorage.setItem("theme", "dark");
+        } else {
+          localStorage.setItem("theme", "light");
+        }
+      });
+    </script>
+  </body>
+</html>

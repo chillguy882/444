@@ -1,0 +1,332 @@
+:root {
+  --primary-bg: #2a2a2a;
+  --primary-text: #fffcfc;
+  --primary-text2: #000000;
+  --secondary-bg: #f5f5f5;
+  --accent-color: #007bff;
+  --accent-hover: #0056b3;
+  --color-a: #000;
+  --color-p: #666;
+  --font-main: Arial, sans-serif;
+  --bg-btn: #020202;
+  --color-btn: #ffffff;
+  --dialog-bg: #b2b2b2;
+  --dialog-text: #ffffff;
+}
+.dark-mode {
+  --primary-bg: #121212;
+  --primary-text: #ffffff;
+  --primary-text2: #ffffff;
+  --secondary-bg: #1e1e1e;
+  --accent-color: #bb86fc;
+  --accent-hover: #3700b3;
+  --color-a: #bb86fc;
+  --color-p: #cccccc;
+  --font-main: Arial, sans-serif;
+  --bg-btn: #ffffff;
+  --color-btn: #000000;
+  --dialog-bg: #000000;
+  --dialog-text: #fcf7f7;
+}
+body {
+  font-family: var(--font-main);
+  background-color: var(--secondary-bg);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: var(--primary-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  height: 60px;
+}
+
+header img {
+  height: 50px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+nav ul li {
+  align-content: center;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: var(--primary-text);
+  text-decoration: none;
+}
+nav ul li button {
+  text-decoration: none;
+  margin: auto;
+  text-align: center;
+}
+
+nav ul li.active a {
+  color: yellow;
+  pointer-events: none;
+}
+
+.nav-links {
+  display: flex;
+}
+
+nav a:hover {
+  color: #8e8e8e;
+}
+
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+  transition: transform 0.4s ease;
+}
+
+.burger-menu div {
+  width: 30px;
+  height: 3px;
+  background-color: var(--primary-text);
+  margin: 3px 0;
+  transition: transform 0.4s ease;
+}
+
+.burger-menu.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+h1 {
+  color: var(--primary-text2);
+  font-size: 2.5em;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 0 10px;
+}
+
+.add-task {
+  transition: 1s;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+  width: 200px;
+  margin: auto;
+}
+
+.add-task a {
+  background-color: var(--accent-color);
+  color: var(--primary-bg);
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.add-task a:hover {
+  background-color: var(--accent-hover);
+}
+
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+}
+
+th {
+  background-color: #333;
+  color: var(--primary-text);
+}
+
+td {
+  background-color: var(--secondary-bg);
+}
+
+td div {
+  background-color: #6a6a6a;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#todoTasks div {
+  background-color: #b9b9b9;
+}
+
+#inProgressTasks div {
+  background-color: #797979;
+}
+
+#doneTasks div {
+  background-color: #333;
+}
+
+.task-done {
+  text-decoration: line-through;
+  color: rgb(39, 194, 1);
+}
+
+button {
+  background-color: var(--bg-btn);
+  color: var(--color-btn);
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #00cc29;
+}
+
+button + button {
+  background-color: #d40000;
+}
+
+button + button:hover {
+  background-color: #a70000;
+}
+
+#taskInput {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border: 2px solid #1b1b1b;
+  border-radius: 5px;
+  background-color: var(--bg-btn);
+  color: var(--color-btn);
+  margin-bottom: 10px;
+}
+
+a {
+  display: block;
+  margin: 10px 5px;
+  color: var(--color-a);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #8e8e8e;
+}
+#taskDialog {
+  border: solid 3px white;
+  color: var(--dialog-text);
+  background-color: var(--dialog-bg);
+}
+main {
+  text-align: center;
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+p {
+  color: var(--color-p);
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+img {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+  }
+  nav ul li button {
+    text-decoration: none;
+    margin: auto;
+    text-align: center;
+  }
+
+  .burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.4s ease;
+  }
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #333;
+    width: 100%;
+    top: 60px;
+    left: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  .nav-links.active li {
+    display: block; /* Делаем элементы li видимыми */
+    margin-bottom: 10px; /* Добавляем отступ между элементами */
+  }
+  .burger-menu div {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-text);
+    margin: 3px 0;
+    transition: transform 0.4s ease;
+  }
+
+  .burger-menu.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .burger-menu.active div:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  nav ul li {
+    display: none;
+  }
+}
